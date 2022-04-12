@@ -1,6 +1,6 @@
-import 'package:owlnime/picture_details.dart';
+import 'package:owlnime/models/picture_details.dart';
+
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'genres.dart';
 
 class AnimeDetail {

@@ -1,59 +1,19 @@
 import 'dart:convert';
-
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:owlnime/animedetails.dart';
-import 'package:owlnime/genres.dart';
-import 'package:owlnime/home_controller.dart';
-import 'package:http/http.dart' as http;
-import 'package:owlnime/utils.dart';
-import 'anime.dart';
+import 'package:get/get.dart';
+import 'package:owlnime/constant/utils.dart';
+import 'package:owlnime/screens/home/home_controller.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  AnimeDetail? anime;
-  bool isLoading = true;
-
-  fetchAnime() async {
-    try {
-      var header = {
-        'x-mal-client-id': '5b15facf8d87c78750e38493150b484e',
-      };
-
-      await http
-          .get(
-              Uri.parse(
-                  'https://api.myanimelist.net/v2/anime/25?fields=id,title,main_picture,start_date,end_date,synopsis,mean,rank,popularity,status,genres,num_episodes,source,pictures'),
-              headers: header)
-          .then((http.Response response) {
-        if (response.statusCode == 200) {
-          setState(() {
-            anime = AnimeDetail.fromJson(jsonDecode(response.body));
-            isLoading = false;
-          });
-        }
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchAnime();
-  }
+class HomeScreen extends StatelessWidget {
+  HomeController controller = Get.find<HomeController>();
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(anime);
+    //print(controller.anime!.title);
     return Scaffold(
-      backgroundColor: Color(0xff17181C),
+      backgroundColor: const Color(0xff161023),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -107,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -118,27 +78,30 @@ class _HomePageState extends State<HomePage> {
                 'Watch the latest anime recomendations',
                 style: desc.copyWith(color: Colors.white),
               ),
-
               Container(
                 height: MediaQuery.of(context).size.height * 0.25,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
+                  // image: DecorationImage(
+                  //     image: NetworkImage(controller.anime!.mainPicture),
+                  //     fit: BoxFit.cover),
                 ),
                 child: Row(
                   children: [
                     Column(
                       children: [
-                        Text(
-                          (anime != null) ? anime!.title : 'Loading..',
-                          style: title.copyWith(color: Colors.white),
-                        ),
+                        // Text(
+                        //   (controller.anime != null)
+                        //       ? controller.anime!.title
+                        //       : 'Loading..',
+                        //   style: title.copyWith(color: Colors.white),
+                        // ),
                         //Text((anime != null) ? anime!.genres : 'Loading')
                       ],
                     )
                   ],
                 ),
               ),
-
               Text(
                 'Popular Anime',
                 style: header.copyWith(color: Colors.white),
@@ -146,45 +109,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 'Best anime poplar recomendations',
                 style: desc.copyWith(color: Colors.white),
-              )
-              // TextFormField(
-              //   cursorColor: const Color(0xff00B2C7),
-              //   decoration: InputDecoration(
-              //     hintText: 'Search anime',
-              //     prefixIcon: const Icon(Icons.search_outlined,
-              //         color: Color(0xff00B2C7)),
-              //     suffixIcon: IconButton(
-              //       icon: Icon(Icons.mic_outlined),
-              //       onPressed: () {},
-              //     ),
-              //     contentPadding:
-              //         const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 5.0),
-              //     enabledBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(
-              //         color: const Color(0xffA9BCCF).withOpacity(0.2),
-              //       ),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     focusedBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(
-              //         color: const Color(0xffA9BCCF).withOpacity(0.2),
-              //       ),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     errorBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(
-              //         color: Colors.red.withOpacity(0.4),
-              //       ),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     focusedErrorBorder: OutlineInputBorder(
-              //       borderSide: BorderSide(
-              //         color: Colors.red.withOpacity(0.4),
-              //       ),
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //   ),
-              // ),
+              ),
             ],
           ),
         ),
