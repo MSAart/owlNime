@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print(controller.anime!.title);
     return Scaffold(
       backgroundColor: const Color(0xff161023),
       body: SafeArea(
@@ -78,38 +77,57 @@ class HomeScreen extends StatelessWidget {
                 'Watch the latest anime recomendations',
                 style: desc.copyWith(color: Colors.white),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.25,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  // image: DecorationImage(
-                  //     image: NetworkImage(controller.anime!.mainPicture),
-                  //     fit: BoxFit.cover),
-                ),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        // Text(
-                        //   (controller.anime != null)
-                        //       ? controller.anime!.title
-                        //       : 'Loading..',
-                        //   style: title.copyWith(color: Colors.white),
-                        // ),
-                        //Text((anime != null) ? anime!.genres : 'Loading')
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Text(
-                'Popular Anime',
-                style: header.copyWith(color: Colors.white),
-              ),
-              Text(
-                'Best anime poplar recomendations',
-                style: desc.copyWith(color: Colors.white),
-              ),
+              Obx(
+                () => Expanded(
+                    child: ListView.builder(
+                        itemCount: controller.listanime.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white.withOpacity(0.2)),
+                            child: ListTile(
+                                title: Row(
+                              children: [
+                                SizedBox(
+                                    width: 100,
+                                    child: ClipRRect(
+                                      child: Image.network(controller
+                                          .listanime[index].mainPicture),
+                                      borderRadius: BorderRadius.circular(10),
+                                    )),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          controller.listanime[index].title,
+                                          style: title.copyWith(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          controller.listanime[index].synopsis,
+                                          style: desc.copyWith(
+                                              color: Colors.white70),
+                                          maxLines: 3,
+                                        ),
+                                        //  Text(movie.year)
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )),
+                          );
+                        })),
+              )
             ],
           ),
         ),

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           binding: LoginBinding(),
         ),
         GetPage(
-            name: "/auth",
+            name: "/sign",
             page: () => RegisterScreen(),
             binding: RegisterBinding()),
         GetPage(

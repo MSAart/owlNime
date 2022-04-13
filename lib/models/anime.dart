@@ -7,7 +7,7 @@ class Anime {
   dynamic startDate;
   dynamic endDate;
   String synopsis;
-  double mean;
+  dynamic mean;
   int ranking;
   int popularity;
   String status;

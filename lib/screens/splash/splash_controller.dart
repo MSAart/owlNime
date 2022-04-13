@@ -9,9 +9,9 @@ class SplashController extends GetxController {
     var duration = const Duration(seconds: 2);
     return Timer(duration, () {
       if (storage.hasData("auth")) {
-        Get.offNamed("/auth");
+        Get.offNamed("/home");
       } else {
-        Get.offNamed("/auth");
+        Get.offNamed("/login");
       }
     });
   }

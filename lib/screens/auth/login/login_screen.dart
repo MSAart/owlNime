@@ -143,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-                                Get.offAllNamed('/auth');
+                                Get.offAllNamed('/sign');
                               },
                             )
                           ],
